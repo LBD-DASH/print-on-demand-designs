@@ -1,0 +1,29 @@
+---
+import Base from '../layouts/Base.astro';
+import Art from '../components/Art.astro';
+import { getCollection } from 'astro:content';
+import { withBase } from '../lib/url';
+const items = (await getCollection('collections')).sort((a, b) => a.id.localeCompare(b.id));
+---
+<Base title="Original print-on-demand designs" description="Original T-shirt, mug, poster and sticker design concepts. A new brand in preparation: shop not open yet, quotes by enquiry later." path="">
+  <div class="wrap">
+    <section class="hero">
+      <span class="badge">Coming soon</span>
+      <h1>Original designs for T-shirts, mugs, posters and stickers</h1>
+      <p>Every design here is drawn from scratch. No logos, no characters, no borrowed artwork. The shop is not open yet, so these are concept previews while the range takes shape.</p>
+      <a class="btn" href={withBase('request-a-quote/')}>Request a quote</a>
+      <a class="btn alt" href={withBase('collections/')}>See the concepts</a>
+    </section>
+    <h2>Concept collections</h2>
+    <div class="grid">
+      {items.map((c) => (
+        <a class="card" href={withBase(`collections/${c.id}/`)}>
+          <Art motif={c.data.motif} palette={c.data.palette} />
+          <div class="body"><h3>{c.data.title.split(':')[0]}</h3><p>{c.data.summary}</p></div>
+        </a>
+      ))}
+    </div>
+    <h2>How it is planned to work</h2>
+    <p class="read">Products are intended to be made to order by an outside print-on-demand provider after a purchase, rather than held in stock. <a href={withBase('how-print-on-demand-works/')}>Read how print on demand works</a> (sourced and dated).</p>
+  </div>
+</Base>

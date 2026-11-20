@@ -1,0 +1,26 @@
+---
+import Base from '../layouts/Base.astro';
+import { getPartner, PARTNER_REL } from '../lib/partners';
+const pf = getPartner('printful'); const py = getPartner('printify');
+---
+<Base title="How print on demand works" description="A short factual guide to print on demand, with sources from Printful and Printify, last checked 20 Nov 2026." path="how-print-on-demand-works/">
+  <div class="wrap page-body"><h1>How print on demand works</h1>
+    <div class="read">
+      <p><strong>Last checked 20 Nov 2026.</strong> We have only included points stated on the providers' own pages, linked below. Provider pages change, so check them directly.</p>
+      <h2>The basic idea</h2>
+      <ul>
+        <li>Each product is made after it is bought, so there is no stock to hold. Printful describes this as having no order minimums. <a href={pf.url} rel={PARTNER_REL}>Printful: Print on demand</a>.</li>
+        <li>After an order, the provider prints, packages and ships the product directly to the customer (same Printful page).</li>
+        <li>Printify describes it as a fulfilment process where products are sent to customers only after a sale goes through, with the order passed to a print provider. <a href={py.url} rel={PARTNER_REL}>Printify: Print on demand</a>.</li>
+      </ul>
+      <h2>Typical steps, as the providers describe them</h2>
+      <ol>
+        <li>Choose a product and upload or create a design.</li>
+        <li>Preview mockups and order samples to check quality (both providers list sampling as a step).</li>
+        <li>Connect or publish to an online store.</li>
+        <li>When a customer orders, the provider produces and ships it.</li>
+      </ol>
+      <h2>What this means for this brand</h2>
+      <p>No provider or store has been chosen or set up yet. Mentioning a provider here is not an endorsement or partnership. See the <a href="../disclosure/">disclosure</a>.</p>
+    </div></div>
+</Base>
