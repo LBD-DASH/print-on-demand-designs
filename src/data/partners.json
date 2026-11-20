@@ -1,0 +1,5 @@
+{
+  "_note": "Single source of truth for outbound partner links. `url` is the plain official site. Paste an approved tracked link into `affiliateUrl` only after a program approves it. Never invent IDs. Leave empty until then.",
+  "printful": { "name": "Printful", "kind": "print-on-demand provider", "blurb": "Print-on-demand fulfilment provider.", "url": "https://www.printful.com/print-on-demand", "affiliateUrl": "" },
+  "printify": { "name": "Printify", "kind": "print-on-demand provider", "blurb": "Print-on-demand platform connecting sellers with print providers.", "url": "https://printify.com/print-on-demand/", "affiliateUrl": "" }
+}

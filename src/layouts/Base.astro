@@ -1,0 +1,45 @@
+---
+import '@fontsource-variable/inter';
+import '@fontsource-variable/fraunces';
+import '../styles/global.css';
+import { withBase, absUrl, SITE_NAME } from '../lib/url';
+interface Props { title: string; description: string; path: string; jsonLd?: object[] }
+const { title, description, path, jsonLd = [] } = Astro.props;
+const canonical = absUrl(path, Astro.site);
+const fullTitle = title.includes(SITE_NAME) ? title : `${title} | ${SITE_NAME}`;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <link rel="icon" type="image/svg+xml" href={withBase('favicon.svg')} />
+    <link rel="sitemap" href={withBase('sitemap.xml')} />
+    {jsonLd.map((o) => <script type="application/ld+json" set:html={JSON.stringify(o)} />)}
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="site-header"><div class="wrap">
+      <a class="brand" href={withBase('')}>{SITE_NAME}</a>
+      <nav aria-label="Main">
+        <a href={withBase('collections/')}>Collections</a>
+        <a href={withBase('how-print-on-demand-works/')}>How it works</a>
+        <a href={withBase('faq/')}>FAQ</a>
+        <a href={withBase('about/')}>About</a>
+        <a class="cta" href={withBase('request-a-quote/')}>Request a quote</a>
+      </nav>
+    </div></header>
+    <main id="main"><slot /></main>
+    <footer class="site-footer"><div class="wrap">
+      <p>{SITE_NAME} is a working name for an original print-on-demand design brand. Nothing here is for sale yet. All artwork is original.</p>
+      <p><a href={withBase('about/')}>About</a> · <a href={withBase('disclosure/')}>Disclosure</a> · <a href={withBase('privacy/')}>Privacy</a> · <a href={withBase('sitemap.xml')}>Sitemap</a></p>
+    </div></footer>
+  </body>
+</html>
