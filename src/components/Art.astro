@@ -1,0 +1,16 @@
+---
+// Original simple geometric concept art, drawn here. Not copied from anywhere.
+interface Props { motif: 'sun' | 'waves' | 'peaks' | 'grid'; palette: string[]; label?: string }
+const { motif, palette, label = 'Concept preview' } = Astro.props;
+const [a, b, c = '#ffffff', d = '#222222'] = palette;
+---
+<figure class="art">
+  <svg viewBox="0 0 320 240" role="img" aria-label={`${label}: ${motif} motif, original geometric artwork`}>
+    <rect width="320" height="240" fill={a} />
+    {motif === 'sun' && <g><circle cx="160" cy="120" r="64" fill={b} /><circle cx="160" cy="120" r="40" fill={c} />{[0,1,2,3,4,5,6,7].map((i) => <rect x="156" y="14" width="8" height="26" rx="4" fill={b} transform={`rotate(${i*45} 160 120)`} />)}</g>}
+    {motif === 'waves' && <g fill="none" stroke-width="10" stroke-linecap="round">{[0,1,2,3,4].map((i) => <path d={`M20 ${60+i*34} q35 -28 70 0 t70 0 t70 0 t70 0`} stroke={i%2 ? c : b} />)}</g>}
+    {motif === 'peaks' && <g><path d="M0 200 L90 80 L150 160 L220 50 L320 200 Z" fill={b} /><path d="M0 240 L0 200 L110 120 L200 190 L320 110 L320 240 Z" fill={c} opacity=".85" /><circle cx="250" cy="48" r="16" fill={d} opacity=".5" /></g>}
+    {motif === 'grid' && <g>{[0,1,2,3].flatMap((r) => [0,1,2,3,4].map((k) => <rect x={30+k*52} y={30+r*46} width="38" height="32" rx={(r+k)%2 ? 16 : 3} fill={(r+k)%3 === 0 ? b : (r+k)%3 === 1 ? c : d} />))}</g>}
+  </svg>
+  <figcaption>{label}. Original artwork, not a product.</figcaption>
+</figure>
