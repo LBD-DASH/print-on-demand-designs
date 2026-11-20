@@ -1,0 +1,21 @@
+---
+import Base from '../../layouts/Base.astro';
+import Art from '../../components/Art.astro';
+import { getCollection } from 'astro:content';
+import { withBase } from '../../lib/url';
+const items = (await getCollection('collections')).sort((a, b) => a.id.localeCompare(b.id));
+---
+<Base title="Design concept collections" description="Original design concepts for T-shirts, mugs, posters and stickers. Concept previews only; nothing is for sale yet." path="collections/">
+  <div class="wrap page-body">
+    <h1>Design concept collections</h1>
+    <p class="read">Each collection is an original theme. Previews are simple artwork made for this site and are labelled as concepts. Nothing is available to buy yet.</p>
+    <div class="grid">
+      {items.map((c) => (
+        <a class="card" href={withBase(`collections/${c.id}/`)}>
+          <Art motif={c.data.motif} palette={c.data.palette} />
+          <div class="body"><h3>{c.data.title}</h3><p>{c.data.description}</p></div>
+        </a>
+      ))}
+    </div>
+  </div>
+</Base>

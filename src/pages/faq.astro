@@ -1,0 +1,16 @@
+---
+import Base from '../layouts/Base.astro';
+const faq = [
+  { q: 'Is anything for sale yet?', a: 'No. The shop is not open. The site shows original design concepts only.' },
+  { q: 'Are the designs original?', a: 'Yes. Previews are simple geometric artwork created for this site. We do not use logos, trademarks, characters, celebrity likenesses or copied artwork.' },
+  { q: 'What products are planned?', a: 'T-shirts, mugs, posters and stickers. Nothing is final and there are no prices yet.' },
+  { q: 'How do I ask about a design?', a: 'Enquiries are not open yet. The request a quote page will be updated when they are.' },
+  { q: 'Who makes the products?', a: 'The plan is to use an outside print-on-demand provider, but none has been chosen yet.' },
+  { q: 'Do you take payments or personal data?', a: 'No. There is no checkout, account or form on this site.' },
+];
+const ld = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
+---
+<Base title="Frequently asked questions" description="Answers about this new original print-on-demand design brand: what is planned, what is original, and what is not yet available." path="faq/" jsonLd={[ld]}>
+  <div class="wrap page-body"><h1>Frequently asked questions</h1>
+    <div class="read">{faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}</div></div>
+</Base>

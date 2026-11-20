@@ -1,0 +1,15 @@
+---
+import Base from '../layouts/Base.astro';
+import { allPartners } from '../lib/partners';
+const partners = allPartners();
+const any = partners.some((p) => p.affiliate);
+---
+<Base title="Disclosure" description="Disclosure for Open Ink Studio: no affiliate programs or sponsorships are active; provider links are plain informational links." path="disclosure/">
+  <div class="wrap page-body"><h1>Disclosure</h1>
+    <div class="read">
+      <p><strong>Last updated:</strong> 20 Nov 2026</p>
+      {any ? <p>Some links on this site are affiliate links, which may earn a commission.</p> : <p>No affiliate program is active. Links to providers are plain informational links and earn us nothing.</p>}
+      <p>Providers mentioned: {partners.map((p) => p.name).join(', ')}. Mentioning them is not an endorsement, and we have no account or agreement with them yet.</p>
+      <p>If that changes, this page will be updated and affected links will be marked.</p>
+    </div></div>
+</Base>

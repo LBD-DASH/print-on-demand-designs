@@ -1,0 +1,28 @@
+---
+import Base from '../../layouts/Base.astro';
+import Art from '../../components/Art.astro';
+import { getCollection, render } from 'astro:content';
+import { withBase, absUrl } from '../../lib/url';
+export async function getStaticPaths() {
+  return (await getCollection('collections')).map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+const { entry } = Astro.props;
+const d = entry.data;
+const { Content } = await render(entry);
+const faqLd = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: d.faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
+---
+<Base title={d.title} description={d.description} path={`collections/${entry.id}/`} jsonLd={[faqLd]}>
+  <div class="wrap page-body">
+    <p><a href={withBase('collections/')}>All collections</a></p>
+    <h1>{d.title}</h1>
+    <span class="badge">Concept only, not for sale</span>
+    <div style="max-width:30rem;margin:1.2rem 0;border:1px solid var(--line);border-radius:14px;overflow:hidden"><Art motif={d.motif} palette={d.palette} /></div>
+    <ul class="chips" aria-label="Planned product types">{d.products.map((p) => <li>{p}</li>)}</ul>
+    <div class="read"><Content />
+      <h2>Questions</h2>
+      {d.faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+      <p class="note">Interested? <a href={withBase('request-a-quote/')}>Request a quote</a>. Enquiries are not open yet.</p>
+      <p class="muted">Last updated {d.lastUpdated.toISOString().slice(0, 10)}.</p>
+    </div>
+  </div>
+</Base>
